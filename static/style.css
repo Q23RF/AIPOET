@@ -1,0 +1,215 @@
+:root {
+  --primary:#990000;
+  --primaryD:#800000;
+  --secondary:#9E9E9E;
+  --secondaryD:#353535;
+  --white: #f0efee;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin-top: 50px;
+  font-family: 'Noto Serif TC', Times, serif;
+  background: var(--white);
+}
+
+::selection {
+    color: var(--white);
+    background: var(--primaryD);
+}
+  
+/* Style the side navigation */
+.sidenav {
+  padding-top: 1.5vh;
+  height: 100%;
+  width: 24%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: var(--primary);
+  overflow-x: hidden;
+}
+
+
+/* Side navigation links */
+.sidenav a {
+  color: var(--white);
+  font-family: Times, serif;
+  font-size: 3.5vw;
+  font-variant: small-caps;
+  padding-left: 2vw;
+  padding-top: 2vh;
+  padding-bottom: 1vh;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  display: block;
+}
+
+.sidenav>:nth-last-child(1) {
+  width: 24%;
+  margin-bottom: max(8.5vw, 36px);
+  position: fixed;
+  z-index: 1;
+  bottom: 0;
+}
+
+.sidenav>:nth-last-child(2) {
+  width: 24%;
+  margin-bottom: 10px;
+  position: fixed;
+  z-index: 1;
+  bottom: 0;
+}
+
+/* Change color on hover */
+.sidenav a:hover {
+  background-color: var(--primaryD);
+  color: var(--white);
+}
+
+/* Style the content */
+.content {
+  margin-left: 24%;
+  font: 'Noto Serif TC';
+  color: var(--secondaryD);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.poems{
+  margin-left: 24%;
+  font: 'Noto Serif TC';
+  color: var(--secondaryD);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* Style the container */
+.poem-container {
+  margin-left: 24%;
+  padding: 0 2vw;
+  font: 'Noto Serif TC';
+  font-size: 16px;
+}
+
+/* Style the inputs */
+::placeholder {
+  font: 'Noto Serif TC';
+}
+input, select{
+  -webkit-appearance: none;
+  -webkit-border-radius: none;
+  margin: 15px 0;
+  width: 60vw;
+  background: var(--white);
+}
+
+input[type=text], input[type=number], select {
+  color: var(--secondaryD);
+  padding: 12px 20px;
+  display: inline-block;
+  border: 1px solid var(--secondaryD);
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+  
+input[type=submit] {
+  /*height: 42px;*/
+  background-color: var(--primary);
+  color: var(--white);
+  padding: 14px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+input[type=submit]:hover {
+  background-color: var(--primaryD);
+}
+  
+input[type=button] {
+  background-color: var(--primary);
+  color: #FFFFFF;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.download {
+  width: 28vw;
+}
+.download-container {
+  width: 60vw;
+  display: flex;
+  justify-content: space-between;
+}
+  
+button {
+  width: 60vw;
+  background-color: var(--primary);
+  color: #FFFFFF;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 8px 0;
+}
+
+.toprint.g{
+    width: 70vw;
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+  .sidenav>:nth-last-child(1) {
+    margin-bottom: 42.5px;
+  }
+}
+
+/* special styling for wide viewports */
+@media (min-width: 960px) {
+  .sidenav {
+    width: 230px;
+    padding-top:12px;
+  }
+  .sidenav a {
+    padding-top: 15px;
+    font-size: 32px;
+	width: 230px;
+  }
+  
+  .sidenav>:nth-last-child(1), .sidenav>:nth-last-child(2) {
+    width: 230px;
+  }
+
+  .sidenav>:nth-last-child(1) {
+    margin-bottom: 68px;
+  }
+	
+  .content {
+    margin-left: 230px;
+  }
+
+  .poems {
+    margin-left: 230px;
+  }
+
+  .poem-container {
+    margin-left: 230px;
+    font-size:20px;
+  }
+  .toprint.g{
+    width: 290px;
+  }
+}

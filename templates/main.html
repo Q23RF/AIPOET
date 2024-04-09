@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8YXSLGF244"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8YXSLGF244');
+</script>
+
+<title>AI詩人</title>
+<meta name="description" content="可指定風格及數量的新詩產生器網站">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC&display=swap" rel="stylesheet">	
+</head>
+<body>
+  
+<div class="sidenav">
+  <a href="/">Main</a>
+  <a href="/feedback">Feedback</a>
+  <a href="/gallery">Gallery</a>
+  <a href="https://www.facebook.com/kghsAI" target="_blank">Kghs</a>
+  <a href="/about">About</a>
+</div>
+
+<div class="content">
+  <form method="post" id=1>
+	<input type="hidden" id="id" name="id" value=1>
+    <div>
+      <label for="n">數量:</label>
+    </div>
+    <div>
+      <input type="number" id="n" name="n" placeholder="您希望AI詩人寫出幾首詩？">
+    </div>
+
+    <div>
+      <label for="style">風格:</label>
+    </div>
+    <div>
+      <select id="style" name="style">
+        <option value=0>懷古</option>
+        <option value=1>抒情</option>
+        <option value=2>奇詭</option>
+      </select> 
+    </div>
+
+  <div>
+    <input type="submit" value="寫詩！">
+  </div>
+  </form>
+<div style="width: 60vw;">
+  {% for p in poem%}
+    {% for l in p %}
+	    {% if l == '\n' %}
+	        <br>
+	    {% endif %}
+        <div>{{ l }}</div>
+    {% endfor %}
+	<div class="download-container">
+		<form class="download" method="post">
+			<input type="hidden" id="id" name="id" value=2>
+			<input type="hidden" id="poem" name="poem" value="{{p}}">
+	    	<input type="submit" class="download" value="下載">
+		</form>
+		<form class="download" method="post">
+			<input type="hidden" id="id" name="id" value=3>
+			<input type="hidden" id="poem" name="poem" value="{{p}}">
+	    	<input type="submit" class="download" value="下載並影印">
+		</form>
+	</div>
+  {% endfor %}
+</div>
+</div>
+</body>
+</html>
+
