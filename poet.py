@@ -40,48 +40,53 @@ def addWord(words, wordDict):
 
 files = ['懷古.txt', '抒情.txt', '奇詭.txt']
 
-notfirst = "個裏鞋貴…後人祐握外款處廠場之的得著嗎吧呢了、，。！？：」"
-notlast = "最不只款，一"
+notFirst = "個裏鞋貴…後人祐握外款處廠場之的得著嗎吧呢了、，。！？：」"
+notLast = "最不只款，一"
 no = "；：,.●()（）」「—~"
 
-
 def write(n, fn):
-    re = []
-    wordDict = buildWordDict(files[fn])
+  results = []
+  wordDict = buildWordDict(files[fn])
 
-    while len(re) < n:
-        passed = True
-        initialWord = choice(list(wordDict.keys()))
-        text = []
+  while len(results)<n:
+    passed = True
+    initialWord = choice(list(wordDict.keys()))
+    text = []
+    currentWord = initialWord
+    line = []
+    lineLen = 0
+    while True:
+      if currentWord not in wordDict:
         currentWord = initialWord
-        line = ""
-        while True:
-            if currentWord not in wordDict:
-                currentWord = initialWord
-            currentWord = retrieveRandomWord(wordDict[currentWord])
+      currentWord = retrieveRandomWord(wordDict[currentWord])
+      line.append(currentWord)
+      lineLen += len(currentWord)
+      if lineLen > 9:
+        line.append('\n')
+        lineLen += 1
+        currentWord = '\n'
+      if currentWord == '\n':
+        for word in line:
+          for c in word:
+            if word in no:
+              passed = False
+        while len(line)>1 and line[0][0] in notFirst:
+          lineLen -= len(line[0])
+          line = line[1:]
+        while len(line)>1 and line[-2][-1] in notLast:
+          lineLen -= len(line[-1])
+          line = line[:-1]
+        else:
+          if len(line) > 1:
+            str = ""
+            for word in line:
+              str += word
+            text.append(str)
+          if len(text) == 4:
+            break
+          line = []
+          lineLen = 0
 
-            line += currentWord
-            if len(line) > 7:
-                line += '\n'
-                currentWord = '\n'
-            if currentWord == '\n':
-                for c in line:
-                    if c in no:
-                        passed = False
-                while line[0] in notfirst:
-                    line = line[1:]
-                else:
-                    text.append(line)
-                    if len(text) > 4 and len(text) < 6:
-                        while text[0][0] == '\n':
-                            del text[0]
-                        while text[-1][0] == '\n':
-                            del text[-1]
-                        while len(line) > 2 and line[-2] in notlast:
-                            text[-1] = line[:-2] + '\n'
-                        break
-                    line = ""
-
-        if passed:
-            re.append(text)
-    return re
+    if passed:
+      results.append(text)
+  return results
