@@ -71,15 +71,14 @@ def write(n, fn):
         while len(line)>1 and line[-2][-1] in notLast:
           lineLen -= len(line[-1])
           line = line[:-1]
-        else:
-          if len(line) > 1:
-            str = ""
-            for word in line:
-              str += word
-            text.append(str)
-          if len(text) == 4:
-            break
-          line = []
-          lineLen = 0
+        if len(line) > 1:
+          str = ""
+          for word in line:
+            str += word
+          text.append(str)
+        if len(text) == 4:
+          break
+        line = []
+        lineLen = 0
     results.append(text)
   return results
