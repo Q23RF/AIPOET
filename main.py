@@ -15,14 +15,14 @@ def main():
             return render_template('main.html', poem=re)
         else:	#下載
             p = request.form["poem"]
-            poem_list = p[2:-2].split("', '")
+            plist = p[2:-2].split("', '")
             ptext=""
-            for line in poem_list:
+            for line in plist:
                 line = line.replace("\\n", "\n")
                 ptext += line
             if int(request.form["id"])==3:	#要影印
                 send_line(ptext)
-            re = write_on_img(ptext).save("data/pc.png")
+            re = write_on_img(plist).save("data/pc.png")
             return send_from_directory('data', "pc.png", as_attachment=True)
 
     return render_template('main.html', poem='')

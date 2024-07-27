@@ -9,11 +9,15 @@ def write_on_img(message):
   font = ImageFont.truetype('static/莫大毛筆-Regular.ttf', 85)
   imgDraw = ImageDraw.Draw(img)
   width = 1748
-  textWidth, textHeight = imgDraw.textsize(message, font=font)
+  textWidth = 0
+  poem = ""
+  for line in message:
+       textWidth = max(textWidth, imgDraw.textlength(line, font=font))
+       poem += line.replace("\\n", "\n")
   xText = (width-textWidth)/2
   yText = 435
 
-  imgDraw.multiline_text((xText, yText), message, font=font, fill=(50, 50, 50), spacing=32, align="center")
+  imgDraw.multiline_text((xText, yText), poem, font=font, fill=(50, 50, 50), spacing=32, align="center")
   return img
 
 def send_line(message):
