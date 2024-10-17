@@ -28,9 +28,9 @@ def main():
                 ptext += line
             if int(request.form["id"])==3:	#要影印
                 send_line(ptext)
-            else:
-                re = write_on_img(plist).save("data/pc.png")
-                return send_from_directory('data', "pc.png", as_attachment=True)
+            #else:
+                #re = write_on_img(plist).save("data/pc.png")
+                #return send_from_directory('data', "pc.png", as_attachment=True)
 
     return render_template('main.html', poem='')
 

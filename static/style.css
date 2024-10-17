@@ -146,10 +146,12 @@ input[type=button] {
   cursor: pointer;
   margin-bottom: 15px;
 }
-
+/*
 .download, .print {
   width: 28vw;
 }
+*/
+
 .download-container {
   width: 60vw;
   display: flex;
