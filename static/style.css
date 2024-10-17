@@ -147,7 +147,7 @@ input[type=button] {
   margin-bottom: 15px;
 }
 
-.download {
+.download, .print {
   width: 28vw;
 }
 .download-container {

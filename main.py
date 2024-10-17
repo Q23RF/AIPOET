@@ -1,8 +1,10 @@
-from flask import Flask, render_template, redirect, request, send_from_directory
+from flask import Flask, render_template, redirect, request, send_from_directory, jsonify
 from random import randint
 from poet import write
 from mail import send
 from post import write_on_img, send_line
+import os
+import requests
 
 app = Flask(__name__)
 urls = ["https://genshin.hoyoverse.com/zh-tw/?gad_source=1&gclid=Cj0KCQjw-5y1BhC-ARIsAAM_oKkTSAn4TSQ50pyw2CICHlzWVETleLrG869aLrKdAspZmqZJVxzRIYgaAhBdEALw_wcB",
@@ -26,10 +28,29 @@ def main():
                 ptext += line
             if int(request.form["id"])==3:	#要影印
                 send_line(ptext)
-            re = write_on_img(plist).save("data/pc.png")
-            return send_from_directory('data', "pc.png", as_attachment=True)
+            else:
+                re = write_on_img(plist).save("data/pc.png")
+                return send_from_directory('data', "pc.png", as_attachment=True)
 
     return render_template('main.html', poem='')
+
+
+@app.route('/send_line', methods=["POST"])
+def send_line_message():
+    message = request.json.get("message", "")
+    if not message:
+        return jsonify({"error": "No message provided"}), 400
+
+    token = os.getenv("LINE_TOKEN")
+    headers = {"Authorization": "Bearer " + token}
+    data = {'message': '\n' + message}
+    response = requests.post("https://notify-api.line.me/api/notify",
+                             headers=headers, data=data)
+    
+    if response.status_code == 200:
+        return jsonify({"status": "Message sent successfully"}), 200
+    else:
+        return jsonify({"error": "Failed to send message"}), response.status_code
 
 
 @app.route('/feedback', methods=["POST", "GET"])

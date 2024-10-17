@@ -12,6 +12,49 @@
   gtag('config', 'G-8YXSLGF244');
 </script>
 
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      const printForm = document.getElementById("print-form");
+  
+      printForm.addEventListener("submit", function(event) {
+          event.preventDefault();
+  
+          // Get the poem text from data-ptext attribute
+          let ptext = printForm.getAttribute("data-ptext");
+  
+          // Convert Python-style list to JSON-compliant format
+          ptext = ptext.replace(/'/g, '"'); // Replace single quotes with double quotes
+          const poemArray = JSON.parse(ptext); // Parse it into an array
+          const poemText = poemArray.join(""); // Join array elements into a single string
+  
+          // Call the function to send the message
+          sendLineMessage(poemText);
+      });
+  
+      async function sendLineMessage(message) {
+          try {
+              const response = await fetch("/send_line", {
+                  method: "POST",
+                  headers: {
+                      "Content-Type": "application/json"
+                  },
+                  body: JSON.stringify({ message: message })
+              });
+              
+              if (response.ok) {
+                  alert("Message sent successfully.");
+              } else {
+                  const errorData = await response.json();
+                  alert("Failed to send message: " + errorData.error);
+              }
+          } catch (error) {
+              console.error("Error:", error);
+              alert("An error occurred while sending the message.");
+          }
+      }
+  });
+  </script>
+
 <title>AI詩人</title>
 <meta name="description" content="可指定風格及數量的新詩產生器網站">
 <meta charset="utf-8">
@@ -74,10 +117,10 @@
 			<input type="hidden" id="poem" name="poem" value="{{p}}">
 	    	<input type="submit" class="download" value="下載">
 		</form>
-		<form class="download" method="post">
+    <form class="print" method="post" data-ptext="{{ p }}" id="print-form">
 			<input type="hidden" id="id" name="id" value=3>
-			<input type="hidden" id="poem" name="poem" value="{{p}}">
-	    	<input type="submit" class="download" value="下載並影印">
+      <input type="hidden" id="poem" name="poem" value="{{ p }}">
+	    <input type="submit" class="print" value="下載並影印">
 		</form>
 </div>
 {% endfor %}
